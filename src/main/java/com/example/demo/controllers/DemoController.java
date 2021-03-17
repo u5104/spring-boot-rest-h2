@@ -1,8 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.Customer;
+import com.example.demo.entities.Customer;
 import com.example.demo.services.CustomerNotFoundException;
-import com.example.demo.services.CustomerService;
 import com.example.demo.services.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

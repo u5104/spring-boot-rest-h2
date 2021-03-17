@@ -25,9 +25,6 @@ public class CustomerServiceErrorAdvice {
     public ResponseEntity<String> handleDogsServiceException(CustomerServiceException e){
         return error(INTERNAL_SERVER_ERROR, e);
     }
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler({DogsServiceValidationException.class})
-//    public void handle(DogsServiceValidationException e) {}
 
     private ResponseEntity<String> error(HttpStatus status, Exception e) {
         return ResponseEntity.status(status).body(e.getMessage());
