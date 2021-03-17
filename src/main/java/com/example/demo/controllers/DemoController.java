@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.Customer;
 import com.example.demo.services.CustomerNotFoundException;
 import com.example.demo.services.CustomerService;
+import com.example.demo.services.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customers")
 public class DemoController {
 
-    private final CustomerService customerService;
+    private final ICustomerService customerService;
 
     @Autowired
-    public DemoController(CustomerService customerService){
+    public DemoController(ICustomerService customerService){
         this.customerService = customerService;
     }
 
@@ -33,7 +34,7 @@ public class DemoController {
         Customer customer = new Customer();
         customer.setFirstName(first);
         customer.setLastName(last);
-        return new ResponseEntity<Customer>(customerService.save(customer), HttpStatus.CREATED);
+        return new ResponseEntity<>(customerService.save(customer), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")
