@@ -29,12 +29,11 @@ public class DemoController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public String addCustomer(@RequestParam String first, @RequestParam String last) {
+    public ResponseEntity<Customer> addCustomer(@RequestParam String first, @RequestParam String last) {
         Customer customer = new Customer();
         customer.setFirstName(first);
         customer.setLastName(last);
-        customerService.save(customer);
-        return "Added new customer to repo!";
+        return new ResponseEntity<Customer>(customerService.save(customer), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")
