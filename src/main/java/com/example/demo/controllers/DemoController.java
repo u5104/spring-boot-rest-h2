@@ -5,6 +5,7 @@ import com.example.demo.services.CustomerNotFoundException;
 import com.example.demo.services.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,12 +37,12 @@ public class DemoController {
         return new ResponseEntity<>(customerService.save(customer), HttpStatus.CREATED);
     }
 
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<Customer>> getCustomers() {
-        return new ResponseEntity<>(customerService.getCustomers(), HttpStatus.OK);
+        return ResponseEntity.ok().body(customerService.getCustomers());
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.FOUND)
     public Customer findCustomerById(@PathVariable Integer id) throws CustomerNotFoundException {
         return customerService.getCustomerById(id);
