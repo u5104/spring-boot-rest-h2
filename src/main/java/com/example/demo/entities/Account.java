@@ -23,7 +23,6 @@ public class Account {
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
     private Customer customer;
 
     public Customer getCustomer() {

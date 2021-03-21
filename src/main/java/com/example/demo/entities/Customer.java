@@ -24,7 +24,6 @@ public class Customer {
             orphanRemoval = true,
             fetch = FetchType.LAZY,
             mappedBy = "customer")
-    @JsonManagedReference
     private List<Account> accounts = new ArrayList<>();
 
     private String firstName;
