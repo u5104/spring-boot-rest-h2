@@ -1,14 +1,14 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.List;
 
 @Entity
 public class Account {
@@ -23,6 +23,7 @@ public class Account {
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Customer customer;
 
     public Customer getCustomer() {
@@ -55,5 +56,13 @@ public class Account {
 
     public void setCurrentQuota(String currentQuota) {
         this.currentQuota = currentQuota;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

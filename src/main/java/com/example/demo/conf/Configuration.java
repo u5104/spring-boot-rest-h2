@@ -3,6 +3,7 @@ package com.example.demo.conf;
 import com.example.demo.services.IPricingService;
 import com.example.demo.services.PricingService;
 import com.example.demo.services.TestPricingService;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,5 +26,10 @@ class AppConfiguration {
             matchIfMissing = true)
     public IPricingService testPricingService() {
         return new TestPricingService();
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

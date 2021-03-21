@@ -15,7 +15,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 public class PricingService implements IPricingService {
 
     private static final HttpClient client = HttpClient.newBuilder().version(Version.HTTP_2).build();
-    private static final String serviceURL = "http://localhost:9999/api/price/";
+    private static final String serviceURL = "http://httpbin.org/get";
 
     @Override
     public String getPriceForAccountType(String accountType) throws IOException, InterruptedException {

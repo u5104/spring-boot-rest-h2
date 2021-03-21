@@ -1,12 +1,14 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,18 +24,11 @@ public class Customer {
             orphanRemoval = true,
             fetch = FetchType.LAZY,
             mappedBy = "customer")
+    @JsonManagedReference
     private List<Account> accounts = new ArrayList<>();
 
     private String firstName;
     private String lastName;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -53,15 +48,21 @@ public class Customer {
 
     public void addAccount(Account account){
         accounts.add(account);
-        account.setCustomer(this);
     }
 
     public void removeAccount(Account account){
         accounts.remove(account);
-        account.setCustomer(null);
     }
 
     public List<Account> getAccounts() {
         return accounts;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
