@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.Customer;
+import com.example.demo.services.exceptions.CustomerNotFoundException;
+import com.example.demo.services.exceptions.CustomerServiceException;
 
 import java.util.List;
 
@@ -11,5 +13,5 @@ public interface ICustomerService {
 
     List<Customer> getCustomers();
 
-    Customer getCustomerById(Integer id) throws CustomerNotFoundException;
+    Customer getCustomerById(Integer id);
 }

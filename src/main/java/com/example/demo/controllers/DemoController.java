@@ -2,8 +2,9 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.Customer;
 import com.example.demo.models.CustomerModel;
-import com.example.demo.services.CustomerNotFoundException;
 import com.example.demo.services.ICustomerService;
+import com.example.demo.services.exceptions.CustomerNotFoundException;
+import com.example.demo.services.exceptions.CustomerServiceException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,19 +50,20 @@ public class DemoController {
     public ResponseEntity<Iterable<CustomerModel>> getCustomers() {
         final List<Customer> customers = customerService.getCustomers();
         return ResponseEntity.ok().body(customers.stream()
-                .map(customer -> {return modelMapper.map(customer, CustomerModel.class);})
+                .map(customer -> modelMapper.map(customer, CustomerModel.class))
                 .collect(Collectors.toList()));
     }
 
     @GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.FOUND)
-    public Customer findCustomerById(@PathVariable Integer id) throws CustomerNotFoundException {
-        return customerService.getCustomerById(id);
+    public ResponseEntity<CustomerModel> findCustomerById(@PathVariable Integer id) throws CustomerNotFoundException {
+        final Customer customer = customerService.getCustomerById(id);
+        return ResponseEntity.ok().body(modelMapper.map(customer, CustomerModel.class));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> update(@RequestBody Customer customer) {
-        customerService.save(customer);
+    public ResponseEntity<String> update(@RequestBody CustomerModel customer) {
+        customerService.save(modelMapper.map(customer, Customer.class));
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
