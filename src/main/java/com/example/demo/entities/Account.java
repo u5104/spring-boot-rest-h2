@@ -1,14 +1,12 @@
 package com.example.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Account {
@@ -16,10 +14,12 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String currentQuota;
+    @NotBlank(message = "Quota amount is mandatory")
+    private Double currentQuota;
 
     private String accountType;
 
+    @NotBlank(message = "Account price mandatory")
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,11 +49,11 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public String getCurrentQuota() {
+    public Double getCurrentQuota() {
         return currentQuota;
     }
 
-    public void setCurrentQuota(String currentQuota) {
+    public void setCurrentQuota(Double currentQuota) {
         this.currentQuota = currentQuota;
     }
 

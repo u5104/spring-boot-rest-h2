@@ -15,12 +15,9 @@ public class CustomerService implements ICustomerService {
 
     private final CustomerRepository customerRepository;
 
-    private final IPricingService pricingService;
-
     @Autowired
-    public CustomerService(CustomerRepository customerRepository, IPricingService pricingService) {
+    public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
-        this.pricingService = pricingService;
     }
 
     @Override

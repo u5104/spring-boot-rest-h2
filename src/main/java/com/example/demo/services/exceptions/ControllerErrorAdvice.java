@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
+import java.io.IOException;
+
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -27,6 +31,17 @@ public class ControllerErrorAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler({CustomerServiceException.class})
     public ResponseEntity<String> handleCustomerServiceException(CustomerServiceException e){
         return error(INTERNAL_SERVER_ERROR, e);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public void constraintViolationException(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler({AccountNotFoundException.class, NullPointerException.class})
+    public ResponseEntity<String> handleNotFoundException(AccountNotFoundException e) {
+        return error(NOT_FOUND, e);
     }
 
     private ResponseEntity<String> error(HttpStatus status, Exception e) {

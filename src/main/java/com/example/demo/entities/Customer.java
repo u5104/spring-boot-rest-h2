@@ -1,15 +1,14 @@
 package com.example.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,12 @@ public class Customer {
             mappedBy = "customer")
     private List<Account> accounts = new ArrayList<>();
 
+    @NotBlank(message = "First name is mandatory")
+    @Size(min=2, message="Name should have atleast 2 characters")
     private String firstName;
+
+    @NotBlank(message = "Last name is mandatory")
+    @Size(min=2, message="Last name should have atleast 2 characters")
     private String lastName;
 
     public String getFirstName() {
