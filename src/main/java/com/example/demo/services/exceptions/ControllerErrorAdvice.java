@@ -22,7 +22,7 @@ public class ControllerErrorAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({CustomerNotFoundException.class, NullPointerException.class})
+    @ExceptionHandler({CustomerNotFoundException.class})
     public ResponseEntity<String> handleNotFoundException(CustomerNotFoundException e) {
         return error(NOT_FOUND, e);
     }
@@ -39,8 +39,14 @@ public class ControllerErrorAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({AccountNotFoundException.class, NullPointerException.class})
+    @ExceptionHandler({AccountNotFoundException.class})
     public ResponseEntity<String> handleNotFoundException(AccountNotFoundException e) {
+        return error(NOT_FOUND, e);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler({NullPointerException.class})
+    public ResponseEntity<String> handleNotFoundException(NullPointerException e) {
         return error(NOT_FOUND, e);
     }
 

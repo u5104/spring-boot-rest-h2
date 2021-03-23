@@ -17,8 +17,6 @@ public class Account {
     @NotBlank(message = "Quota amount is mandatory")
     private Double currentQuota;
 
-    private String accountType;
-
     @NotBlank(message = "Account price mandatory")
     private Double price;
 
@@ -39,14 +37,6 @@ public class Account {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
     }
 
     public Double getCurrentQuota() {

@@ -36,9 +36,8 @@ public class DatabaseSeeder  implements CommandLineRunner {
 
         final Account account = new Account();
         account.setCustomer(customer0);
-        account.setAccountType("FREE");
-        account.setCurrentQuota("1.0");
-        account.setPrice(0d);
+        account.setCurrentQuota(1d);
+        account.setPrice(4.99d);
         accountRepository.save(account);
 
         Customer customer1 = new Customer();
@@ -48,8 +47,7 @@ public class DatabaseSeeder  implements CommandLineRunner {
 
         final Account account1 = new Account();
         account1.setCustomer(customer1);
-        account1.setAccountType("PAID_01");
-        account1.setCurrentQuota("10");
+        account1.setCurrentQuota(10d);
         account1.setPrice(9.99d);
         accountRepository.save(account1);
 

@@ -6,6 +6,7 @@ import com.example.demo.models.AccountModel;
 import com.example.demo.models.CustomerModel;
 import com.example.demo.services.IAccountService;
 import com.example.demo.services.ICustomerService;
+import com.example.demo.services.IQuotaService;
 import com.example.demo.services.exceptions.AccountNotFoundException;
 import com.example.demo.services.exceptions.CustomerNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -30,20 +31,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/gui")
+@RequestMapping("/gui/email")
 @Validated
 public class MyEmailGuiController {
 
     private final ICustomerService customerService;
     private final IAccountService accountService;
+    private final IQuotaService quotaService;
 
     private ModelMapper modelMapper;
 
     @Autowired
-    public MyEmailGuiController(ICustomerService customerService, ModelMapper modelMapper, IAccountService accountService){
+    public MyEmailGuiController(ICustomerService customerService,
+                                ModelMapper modelMapper,
+                                IAccountService accountService,
+                                IQuotaService quotaService){
         this.customerService = customerService;
         this.modelMapper = modelMapper;
         this.accountService = accountService;
+        this.quotaService = quotaService;
     }
 
     @PostMapping("/addCustomer")
@@ -96,6 +102,12 @@ public class MyEmailGuiController {
     public ResponseEntity<AccountModel> findAccountById(@PathVariable @Min(1) Integer id) throws AccountNotFoundException {
         final Account account = accountService.getAccountById(id);
         return ResponseEntity.ok().body(modelMapper.map(account, AccountModel.class));
+    }
+
+    @GetMapping(value = "/availableQuotas", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Iterable<Double>> getAvailableQuotas() {
+        final Iterable<Double> availableQuotas = quotaService.getAvailableQuotas();
+        return ResponseEntity.ok().body(availableQuotas);
     }
 
 }

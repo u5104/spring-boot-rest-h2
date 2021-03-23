@@ -5,7 +5,7 @@ import java.io.IOException;
 public class TestPricingService implements IPricingService {
 
     @Override
-    public String getPriceForAccountType(String accountType) throws IOException, InterruptedException {
+    public String getPriceForQuotaAmount(Double quota) {
         return String.valueOf(getRandomNumber(1, 10));
     }
 

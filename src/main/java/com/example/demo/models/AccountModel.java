@@ -6,7 +6,6 @@ public class AccountModel {
 
     private Integer id;
     private String currentQuota;
-    private String accountType;
     private Double price;
     @JsonBackReference
     private CustomerModel customer;
@@ -25,14 +24,6 @@ public class AccountModel {
 
     public void setCurrentQuota(String currentQuota) {
         this.currentQuota = currentQuota;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
     }
 
     public Double getPrice() {
