@@ -1,6 +1,6 @@
 # spring-boot-rest-h2
 
-the small app contains 2 REST enpoints
+the small app contains 2 REST endpoints
 
 MyEmailGuiController at /gui/email
 and
