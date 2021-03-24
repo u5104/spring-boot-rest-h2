@@ -2,9 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.entities.Account;
 import com.example.demo.entities.Customer;
-import com.example.demo.services.IAccountService;
 import com.example.demo.services.ICustomerService;
-import com.example.demo.services.IQuotaService;
 import com.example.demo.services.exceptions.CustomerNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +26,10 @@ import java.util.stream.Collectors;
 public class SupportToolsGuiController {
 
     private final ICustomerService customerService;
-    private final IAccountService accountService;
-
-    private ModelMapper modelMapper;
 
     @Autowired
-    public SupportToolsGuiController(ICustomerService customerService,
-                                     ModelMapper modelMapper,
-                                     IAccountService accountService,
-                                     IQuotaService quotaService) {
+    public SupportToolsGuiController(ICustomerService customerService) {
         this.customerService = customerService;
-        this.modelMapper = modelMapper;
-        this.accountService = accountService;
     }
 
     @GetMapping(value = "/findQuota/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
